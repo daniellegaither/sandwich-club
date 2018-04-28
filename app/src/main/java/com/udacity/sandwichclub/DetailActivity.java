@@ -3,6 +3,7 @@ package com.udacity.sandwichclub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,11 +59,40 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI(Sandwich sandwich) {
-
         TextView placeOfOriginTextView = (TextView) findViewById(R.id.origin_tv);
+        TextView alsoKnownAsTextView = (TextView) findViewById(R.id.also_known_tv);
+        TextView ingredientsTextView = (TextView) findViewById(R.id.ingredients_tv);
         TextView descriptionTextView = (TextView) findViewById(R.id.description_tv);
 
-        placeOfOriginTextView.setText(sandwich.getPlaceOfOrigin());
-        descriptionTextView.setText(sandwich.getDescription());
+
+        if (sandwich.getPlaceOfOrigin().length() > 0) {
+            placeOfOriginTextView.setText(sandwich.getPlaceOfOrigin());
+        } else {
+            placeOfOriginTextView.setText("Unknown");
+        }
+
+        if (sandwich.getAlsoKnownAs().size() > 0)
+        {
+            alsoKnownAsTextView.setText(TextUtils.join("\n"
+                    , sandwich.getAlsoKnownAs()));
+        } else {
+            alsoKnownAsTextView.setText("Unknown");
+        }
+
+        if (sandwich.getIngredients().size() > 0)
+        {
+            ingredientsTextView.setText(TextUtils.join("\n"
+                    , sandwich.getIngredients()));
+        } else {
+            ingredientsTextView.setText("Unknown");
+        }
+
+        if (sandwich.getDescription().length() > 0)
+        {
+            descriptionTextView.setText(sandwich.getDescription());
+        } else {
+            descriptionTextView.setText("Description not available");
+        }
+
     }
 }
